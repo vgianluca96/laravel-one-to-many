@@ -33,15 +33,13 @@
         </div>
     
         <div class="col-md-6">
-          <label for="projectType" class="form-label">Type</label>
+          <label for="projectType" class="form-label">Select a Type</label>
           <select class="form-control @error('type_id') is-invalid @enderror" name="type_id" id="projectType">
-            <option selected disabled>Select a type</option>
-            <option value="">No type</option>
+            <option value="" {{old('type_id') == '' ? 'selected' : ''}}>No type</option>
             @foreach($types as $type)
             <option value="{{$type->id}}" {{old('type_id') == $type->id ? 'selected' : ''}}>{{$type->name}}</option>
             @endforeach
           </select>
-
           @error('type_id')
             <div class="text-danger">
               {{$message}}

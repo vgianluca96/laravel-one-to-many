@@ -16,9 +16,9 @@
         <div>
           <strong>Type:</strong>
           @if($project->type_id)
-            {{$type->name}}
+          <span class="badge bg-primary">{{$type->name}}</span>
           @else
-          No Type assigned
+          <span class="badge bg-secondary">No Type assigned</span>
           @endif
         </div>
         <div class="d-flex align-items-center py-2">
