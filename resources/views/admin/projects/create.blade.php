@@ -33,6 +33,23 @@
         </div>
     
         <div class="col-md-6">
+          <label for="projectType" class="form-label">Type</label>
+          <select class="form-control @error('type_id') is-invalid @enderror" name="type_id" id="projectType">
+            <option selected disabled>Select a type</option>
+            <option value="">No type</option>
+            @foreach($types as $type)
+            <option value="{{$type->id}}" {{old('type_id') == $type->id ? 'selected' : ''}}>{{$type->name}}</option>
+            @endforeach
+          </select>
+
+          @error('type_id')
+            <div class="text-danger">
+              {{$message}}
+            </div>
+          @enderror
+      </div>
+
+        <div class="col-md-6">
             <label for="projectGithubLink" class="form-label">Github Link</label>
             <input type="text" class="form-control @error('github_link') is-invalid @enderror" id="projectGithubLink" name="github_link" placeholder="https://github.com/vgianluca96/folder-name" value="{{old('github_link')}}">
             @error('github_link')

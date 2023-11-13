@@ -13,6 +13,14 @@
 
     <div class="card">
       <div class="card-body">
+        <div>
+          <strong>Type:</strong>
+          @if($project->type_id)
+            {{$type->name}}
+          @else
+          No Type assigned
+          @endif
+        </div>
         <div class="d-flex align-items-center py-2">
           <div>
             <span class="badge bg-dark">

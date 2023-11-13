@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Models\Type;
 
 class ProjectController extends Controller
 {
@@ -17,7 +18,8 @@ class ProjectController extends Controller
     public function index()
     {
         //$projects = Project::all();
-        $projects = DB::table('projects')->paginate(10);
+        //$projects = DB::table('projects')->paginate(10);
+        $projects = Project::orderByDesc('id')->paginate(10);
 
         return view('admin.projects.index', ['projects' => $projects]);
     }
@@ -27,7 +29,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -41,6 +45,8 @@ class ProjectController extends Controller
         $data = $request->all();
         $slug  = Str::slug($request->all()["title"], '-');
         $data += ['slug' => $slug];
+
+        //dd($data);
 
         if ($request->has('preview')) {
             $file_path = Storage::put('projects_previews', $request->preview);
@@ -57,7 +63,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return view('admin.projects.show', compact('project'));
+        $type = Type::find($project->type_id);
+
+        return view('admin.projects.show', compact('project'), compact('type'));
     }
 
     /**
