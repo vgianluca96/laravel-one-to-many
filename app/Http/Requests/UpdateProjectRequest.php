@@ -24,6 +24,7 @@ class UpdateProjectRequest extends FormRequest
     {
         return [
             'title' => ['required', Rule::unique('projects')->ignore($this->project), 'max:255'],
+            'type_id' => ['nullable', 'exists:types,id'],
             'github_link' => ['required', Rule::unique('projects')->ignore($this->project), 'max:255'],
             'internet_link' => [Rule::unique('projects')->ignore($this->project), 'max:255'],
             'description' => 'max:255',

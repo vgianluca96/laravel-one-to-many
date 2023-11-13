@@ -46,8 +46,6 @@ class ProjectController extends Controller
         $slug  = Str::slug($request->all()["title"], '-');
         $data += ['slug' => $slug];
 
-        //dd($data);
-
         if ($request->has('preview')) {
             $file_path = Storage::put('projects_previews', $request->preview);
             $data['preview'] = $file_path;
@@ -73,7 +71,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
